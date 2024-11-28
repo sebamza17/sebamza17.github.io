@@ -15,7 +15,7 @@ export default function run () {
     }
     
     #doom > .dosbox-container > .dosbox-overlay { 
-      background: url("https://thedoggybrad.github.io/doom_on_js-dos/DOOM.png"); 
+      background: url("https://sebamza17.github.io/images/DOOM.png"); 
       width: 100%; 
       height: 100%; 
       background-size: cover;
@@ -98,7 +98,7 @@ export default function run () {
       id: "doom",
       onload: function (_dosbox) {
         console.log(_dosbox)
-        dosbox_DOOM.run("https://thedoggybrad.github.io/doom_on_js-dos/DOOM-@evilution.zip", "./DOOM/DOOM.EXE")
+        dosbox_DOOM.run("https://sebamza17.github.io/games/DOOM.zip", "./DOOM/DOOM.EXE")
       },
       onrun: function (_dosbox, _app) {
         console.log(_dosbox)
