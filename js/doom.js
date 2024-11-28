@@ -86,7 +86,6 @@ export default function run () {
   closeButton.style.right = '14px'
   closeButton.style.fontSize = '28px'
   closeButton.style.color = '#fff'
-  
   closeButton.style.cursor = 'pointer'
   modal.appendChild(closeButton)
 
@@ -99,7 +98,7 @@ export default function run () {
       id: "doom",
       onload: (_dosbox) => {
         console.log(_dosbox)
-        this.callPeekExtensionsAPI('showToast', 'success', 'DOOM Loaded!')
+        this.callPeekExtensionsAPI('showToast', 'info', 'Loading DOOM...')
         dosbox_DOOM.run("https://sebamza17.github.io/games/DOOM.zip", "./DOOM/DOOM.EXE")
       },
       onrun: (_dosbox, _app) => {
