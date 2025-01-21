@@ -26,6 +26,24 @@ export default function run () {
       }
     }
 
+    @keyframes shake {
+      10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+      }
+
+      20%, 80% {
+        transform: translate3d(2px, 0, 0);
+      }
+
+      30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+      }
+
+      40%, 60% {
+        transform: translate3d(4px, 0, 0);
+      }
+    }
+
     .extension-daily-announcement {
       padding: 16px;
       margin-top: 12px;
@@ -36,7 +54,7 @@ export default function run () {
       border-radius: 6px 6px;
       box-shadow: var(--il-shadow-cool-base), var(--il-shadow-cool-base), var(--il-shadow-cool-raised);
 
-      animation: darkenSkyblue 2s infinite linear;
+      animation: darkenSkyblue 2.4s infinite linear, shake 1.2s cubic-bezier(.36,.07,.19,.97) infinite;
     }
 
     .extension-daily-announcement h2 {
