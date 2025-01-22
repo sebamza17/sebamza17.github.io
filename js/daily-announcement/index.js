@@ -51,10 +51,15 @@ export default function run () {
 
       background-color: skyblue;
       color: white;
+      cursor: pointer;
       border-radius: 6px 6px;
       box-shadow: var(--il-shadow-cool-base), var(--il-shadow-cool-base), var(--il-shadow-cool-raised);
 
       animation: darkenSkyblue 2.4s infinite linear, shake 1.2s cubic-bezier(.36,.07,.19,.97) infinite;
+    }
+
+    .extension-daily-announcement:hover {
+      animation-play-state: paused;
     }
 
     .extension-daily-announcement h2 {
@@ -73,4 +78,13 @@ export default function run () {
   document.head.appendChild(styleTag)
 
   target.innerHTML = message
+
+  target.addEventListener('click', () => {
+    // scroll to .iliad-date-picker
+    const datePicker = document.querySelector('.iliad-date-picker')
+
+    if (datePicker) {
+      datePicker.scrollIntoView({ behavior: 'smooth' })
+    }
+  })
 }
