@@ -18,11 +18,10 @@ export default function run () {
     headers: {
       'Authorization': 'Key 1a88a40e-4107-464d-bf92-45ad6fa8c4cf'
     }
+  }).then(async (response) => {
+    const body = await response.json()
+    console.log('REST fetch from extension code: Body:', body)
   })
-    .then(async (response) => {
-      const body = await response.json()
-      debugger
-    })
 }
 
 /**
