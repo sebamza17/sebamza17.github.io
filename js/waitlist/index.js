@@ -11,12 +11,23 @@ export default function run () {
       enableWaitlistOnDates(datesWithWaitlist, event.data.value)
     }
   })
-
+  
   // test query for CORS
-  fetch('http://book.peek.stack/services/api/availability-dates?c=&cache=true&end-date=2025-03-11&include=&namespace=50201dd6-1261-4c20-fb54-45413a9b58a6&pc-id=p_g7bd7&src-booking-refid=32202e97-1bde-4746-8db0-a5bdbbdddb07&start-date=2025-03-04&use-legacy-api=true', {
+  // fetch('http://book.peek.stack/services/api/availability-dates?c=&cache=true&end-date=2025-03-11&include=&namespace=50201dd6-1261-4c20-fb54-45413a9b58a6&pc-id=p_g7bd7&src-booking-refid=32202e97-1bde-4746-8db0-a5bdbbdddb07&start-date=2025-03-04&use-legacy-api=true', {
+  //   method: 'get',
+  //   headers: {
+  //     'Authorization': 'Key 1a88a40e-4107-464d-bf92-45ad6fa8c4cf'
+  //   }
+  // }).then(async (response) => {
+  //   const body = await response.json()
+  //   console.log('REST fetch from extension code: Body:', body)
+  // })
+
+  // IX fetch
+  fetch('https://book-ix.dev.peek.com/services/api//availability-dates?c=&cache=true&end-date=2025-03-11&include=&namespace=7e1221fa-ab73-415c-b6a4-5464a51c0a54&pc-id=p_734km&src-booking-refid=a9efe9d9-b8d7-48e7-8ca1-43159f60199c&start-date=2025-03-04&use-legacy-api=true', {
     method: 'get',
     headers: {
-      'Authorization': 'Key 1a88a40e-4107-464d-bf92-45ad6fa8c4cf'
+      'Authorization': 'Key 5220684c-099d-442d-89e7-6a329c851ade'
     }
   }).then(async (response) => {
     const body = await response.json()
