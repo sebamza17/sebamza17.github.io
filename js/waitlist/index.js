@@ -1,5 +1,5 @@
 export default function run () {
-  const datesWithWaitlist = ['2025-03-04', '2025-04-18']
+  const datesWithWaitlist = ['2025-04-10', '2025-04-18', '2025-05-28']
 
   // subscribe to date-change events on ember
   this.subscribeToAppEvent('ActivitySlotListComponent.activitySlotDates.update', (event) => {
@@ -11,28 +11,6 @@ export default function run () {
       enableWaitlistOnDates(datesWithWaitlist, event.data.value)
     }
   })
-  
-  // test query for CORS
-  // fetch('http://book.peek.stack/services/api/availability-dates?c=&cache=true&end-date=2025-03-11&include=&namespace=50201dd6-1261-4c20-fb54-45413a9b58a6&pc-id=p_g7bd7&src-booking-refid=32202e97-1bde-4746-8db0-a5bdbbdddb07&start-date=2025-03-04&use-legacy-api=true', {
-  //   method: 'get',
-  //   headers: {
-  //     'Authorization': 'Key 1a88a40e-4107-464d-bf92-45ad6fa8c4cf'
-  //   }
-  // }).then(async (response) => {
-  //   const body = await response.json()
-  //   console.log('REST fetch from extension code: Body:', body)
-  // })
-
-  // IX fetch
-  fetch('https://book-ix.dev.peek.com/services/api//availability-dates?c=&cache=true&end-date=2025-03-11&include=&namespace=7e1221fa-ab73-415c-b6a4-5464a51c0a54&pc-id=p_734km&src-booking-refid=a9efe9d9-b8d7-48e7-8ca1-43159f60199c&start-date=2025-03-04&use-legacy-api=true', {
-    method: 'get',
-    headers: {
-      'Authorization': 'Key 5220684c-099d-442d-89e7-6a329c851ade'
-    }
-  }).then(async (response) => {
-    const body = await response.json()
-    console.log('REST fetch from extension code: Body:', body)
-  })
 }
 
 /**
@@ -40,13 +18,44 @@ export default function run () {
  * @param datesOnWaitlist
  * @param emberDates
  */
-const enableWaitlistOnDates = (datesOnWaitlist, emberDates) => {
+const enableWaitlistOnDates = (datesOnWaitlist) => {
+  const dateHeaders = document.querySelectorAll(`[data-test-activity-slot-list-date-header]`)
+
+  dateHeaders.forEach(element => {
+    // Get the date string from the data attribute (format: "Wednesday, April 10")
+    const headerDateString = element.getAttribute('data-test-activity-slot-list-date-header')
+
+    if (headerDateString) {
+      // Parse the date string to get a Date object
+      const currentYear = new Date().getFullYear()
+      const parsedDate = new Date(`${headerDateString}, ${currentYear}`)
+
+      // Format the date to match datesOnWaitlist format (YYYY-MM-DD)
+      const formattedDate = parsedDate.toISOString().split('T')[0]
+
+      // Check if this date is in our waitlist dates
+      if (datesOnWaitlist.includes(formattedDate)) {
+        // Create clock icon container
+        const clockIconContainer = document.createElement('div')
+        clockIconContainer.className = 'inline-flex items-center justify-center ml-2'
+        clockIconContainer.setAttribute('data-test-waitlist-clock-icon', '')
+        clockIconContainer.innerHTML = '🕐 <span class="text-sm font-bold pl-1 text-gray-700">There is a waitlist for this date</span>'
+
+        // Add the clock icon after the date text
+        const dateHeaderInner = element.querySelector('.activity-slot-list-date-header')
+        if (dateHeaderInner) {
+          dateHeaderInner.appendChild(clockIconContainer)
+        }
+      }
+    }
+  })
+
   const dateElements = document.querySelectorAll(`[data-test-time-slot-container-date] [data-test-time-slot]`)
 
   dateElements.forEach(element => {
     element.addEventListener('click', (event) => {
       // find closest ancestor element that matches the selector "[data-test-time-slot]"
-      const timeSlotElement = (event.target).closest('[data-test-time-slot-container-date]')
+      const timeSlotElement = event.target.closest('[data-test-time-slot-container-date]')
 
       // check if the element exists and has the attribute "data-test-time-slot"
       if (timeSlotElement && timeSlotElement.hasAttribute('data-test-time-slot-container-date')) {
