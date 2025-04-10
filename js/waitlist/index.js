@@ -18,7 +18,7 @@ export default function run () {
  * @param datesOnWaitlist
  * @param emberDates
  */
-const enableWaitlistOnDates = (datesOnWaitlist) => {
+const enableWaitlistOnDates = (datesOnWaitlist, emberDates) => {
   const dateHeaders = document.querySelectorAll(`[data-test-activity-slot-list-date-header]`)
 
   dateHeaders.forEach(element => {
